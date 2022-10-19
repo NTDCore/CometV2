@@ -1855,3 +1855,31 @@ runcode(function()
         end
     })
 end)
+
+runcode(function()
+    local Enabled = false
+    function texturemainfunction()
+        local blocks = game:GetService("CollectionService"):GetTagged("block")
+        for i,v in pairs(blocks) do
+            if v:GetAttribute("PlacedByUserId") == 0 then
+                v.Material = (Enabled and Enum.Material.SmoothPlastic or (v.Name:find("glass") and enum.Material.SmoothPlastic or Enum.Material.Fabric))
+                for i2,v2 in pairs(v:GetChildren()) do
+                    if v2:IsA("Texture") then
+                        v.Transparency = (Enabled and 1) or 0
+                    end
+                end
+            end
+        end
+    end
+    local FPSBoost = Tabs["World"]:CreateToggle({
+        ["Name"] = "FPSBoost",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                texturemainfunction()
+            else
+                texturemainfunction()
+            end
+        end
+    })
+end)
