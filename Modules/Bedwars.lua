@@ -519,10 +519,10 @@ runcode(function()
                                     velo.Velocity = Vector3.new(0,i*1,0)
                                 end
                             elseif Mode["Value"] == "Funny" then
-                                for i = 2,30,2 do
-                                    task.wait(0.01)
+                                for i = 1,50 do
+                                    task.wait()
                                     if not Enabled then return end
-                                    velo.Velocity = Vector3.new(0,25 + i,0)
+                                    velo.Velocity = Vector3.new(0,15 + i,0)
                                 end
                             elseif Mode["Value"] == "Moonsoon" then
                                 for i = 1,10 do
@@ -1245,7 +1245,6 @@ runcode(function()
     end
     local Enabled = false
     local Distance = {["Value"] = 30}
-    local Animation = {["Enabled"] = false}
     local Nuker = Tabs["World"]:CreateToggle({
         ["Name"] = "Nuker",
         ["Callback"] = function(Callback)
@@ -1590,73 +1589,10 @@ runcode(function()
 end)
 
 runcode(function()
-    function HasTNT()
-        if IsAlive(lplr) and lplr.Character:FindFirstChild("InventoryFolder").Value:FindFirstChild("tnt") then
-            return true
-        end
-        return false
-    end
-    function getpos()
-        local x = math.round(lplr.Character.PrimaryPart.Position.X/3)
-        local y = math.round(lplr.Character.PrimaryPart.Position.Y/3)
-        local z = math.round(lplr.Character.PrimaryPart.Position.Z/3)
-        return Vector3.new(x,y,z)
-    end
-    local Speed = {["Value"] = 90}
-    local Up = {["Value"] = 5}
-    local velo
-    local Enabled = false
-    local TNTFly = Tabs["Blatant"]:CreateToggle({
-        ["Name"] = "TNTFly",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                velo = Instance.new("BodyVelocity")
-                velo.MaxForce = Vector3.new(9e9,9e9,9e9)
-                velo.Velocity = Vector3.new(0,0.5,0)
-                velo.Parent = lplr.Character:FindFirstChild("HumanoidRootPart")
-                if not HasTNT() then
-                    lib["ToggleFuncs"]["TNTFly"](true)
-                    return
-                end
-                game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.PlaceBlock:InvokeServer({
-                    ["position"] = getpos(),
-                    ["blockType"] = "tnt"
-                })
-                task.wait(3)
-                lplr.Character:FindFirstChild("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
-                velo.Velocity = lplr.Character:FindFirstChild("HumanoidRootPart").CFrame.LookVector * Speed["Value"] + Vector3.new(0,Up["Value"],0)
-                lplr.Character:FindFirstChild("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
-            else
-                velo:Destroy()
-            end
-        end
-    })
-    Speed = TNTFly:CreateSlider({
-        ["Name"] = "Speed",
-        ["Function"] = function() end,
-        ["Min"] = 0,
-        ["Max"] = 300,
-        ["Default"] = 90,
-        ["Round"] = 1
-    })
-    Up = TNTFly:CreateSlider({
-        ["Name"] = "Up",
-        ["Function"] = function() end,
-        ["Min"] = 0,
-        ["Max"] = 15,
-        ["Default"] = 5,
-        ["Round"] = 1
-    })
-end)
-
-runcode(function()
     local connections = {}
     local objects = {}
     local newcon
     local Enabled = false
-    local FillTransparency = {["Value"] = 0}
-    local OutlineTransparency = {["Value"] = 1}
     function BrickToNew(bname)
         local p = Instance.new("Part")
         p.BrickColor = bname
@@ -1664,82 +1600,72 @@ runcode(function()
         p:Destroy()
         return new
     end
-    function ESPModel(model,plr)
-        for i,v in pairs(model:GetChildren()) do
-            if string.lower(v.ClassName):find("part") then
-                local hl = Instance.new("Highlight")
-                hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-                hl.Enabled = true
-                hl.FillColor = BrickToNew(plr.TeamColor)
-                hl.FillTransparency = 0
-                hl.OutlineColor = Color3.fromRGB(255,255,255)
-                hl.OutlineTransparency = 1
-                hl.Parent = v
-                table.insert(objects,hl)
-                spawn(function()
-                    repeat
-                        task.wait(0.1)
-                        hl.FillTransparency = FillTransparency["Value"]
-                        hl.OutlineTransparency = OutlineTransparency["Value"]
-                    until not hl or not v or not model
-                end)
+    function TagHead(part,plr)
+        local tag = Drawing.new("Text")
+        tag.Color = BrickToNew(plr.TeamColor)
+        tag.Visible = false
+        tag.Text = plr.DisplayName or plr.Name
+        tag.Size = 20
+        tag.Center = true
+        tag.Outline = false
+        tag.Font = 1
+        table.insert(objects,tag)
+        spawn(function()
+            repeat
+                task.wait()
+                local vec,onscreen = cam:worldToViewportPoint(plr.Character:FindFirstChild("Head").Position)
+                if onscreen then
+                    tag.Visible = true
+                    tag.Position = Vector2.new(vec.X,vec.Y)
+                    tag.Text = (plr.DisplayName or plr.Name).." "..math.floor(plr.Character:FindFirstChild("Humanoid").Health).."HP"
+                else
+                    tag.Visible = false
+                end
+            until not tag or not IsAlive(plr)
+            if tag then
+                tag:Remove()
+                objects[tag] = nil
             end
-        end
+        end)
     end
-    local ESP = Tabs["Render"]:CreateToggle({
-        ["Name"] = "ESP",
+    local Nametags = Tabs["Render"]:CreateToggle({
+        ["Name"] = "Nametags",
         ["Callback"] = function(Callback)
             Enabled = Callback
             if Enabled then
-                for i,v in pairs(game:GetService("Players"):GetChildren()) do
-                    if v.Name ~= lplr.Name then
-                        if IsAlive(v) then
-                            ESPModel(v.Character,v)
+                for i,plr in pairs(game:GetService("Players"):GetChildren()) do
+                    if plr.Name ~= lplr.Name then
+                        if IsAlive(plr) then
+                            TagHead(plr.Character:WaitForChild("Head"),plr)
                         end
-                        connections[#connections+1] = v.CharacterAdded:Connect(function(c)
-                            task.wait(1.5)
-                            ESPModel(c,v)
+                        connections[#connections+1] = plr.CharacterAdded:Connect(function(char)
+                            task.wait(1)
+                            TagHead(char:WaitForChild("Head"),plr)
                         end)
                     end
                 end
-                newcon = game:GetService("Players").PlayerAdded:Connect(function(v)
-                    connections[#connections+1] = v.CharacterAdded:Connect(function(c)
-                        task.wait(1.5)
-                        ESPModel(c,v)
+                newcon = game:GetService("Players").PlayerAdded:Connect(function(plr)
+                    connections[#connections+1] = plr.CharacterAdded:Connect(function(char)
+                        task.wait(1)
+                        TagHead(char:WaitForChild("Head"))
                     end)
                 end)
             else
+                newcon:Disconnect()
                 for i,v in pairs(connections) do
                     v:Disconnect()
                     connections[v] = nil
                 end
                 for i,v in pairs(objects) do
-                    v:Destroy()
+                    v:Remove()
                     objects[v] = nil
                 end
-                newcon:Disconnect()
                 connections = nil
                 objects = nil
                 connections = {}
                 objects = {}
             end
         end
-    })
-    FillTransparency = ESP:CreateSlider({
-        ["Name"] = "FillTransparency",
-        ["Function"] = function() end,
-        ["Min"] = 0,
-        ["Max"] = 1,
-        ["Default"] = 0,
-        ["Round"] = 1
-    })
-    OutlineTransparency = ESP:CreateSlider({
-        ["Name"] = "OutlineTransparency",
-        ["Function"] = function() end,
-        ["Min"] = 0,
-        ["Max"] = 1,
-        ["Default"] = 1,
-        ["Round"] = 1
     })
 end)
 
@@ -1903,12 +1829,11 @@ end)
 
 runcode(function()
     local Enabled = false
-    local AimAssist = Tabs["Utility"]:CreateToggle({
+    local TexturePack = Tabs["Utility"]:CreateToggle({
         ["Name"] = "TexturePack",
         ["Callback"] = function(Callback)
             Enabled = Callback
             if Enabled then
-                lib["ToggleFuncs"]["TexturePack"](true)
                 local obj = game:GetObjects("rbxassetid://11144793662")[1]
                 obj.Name = "Part"
                 obj.Parent = game:GetService("ReplicatedStorage")
