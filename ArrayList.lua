@@ -10,13 +10,7 @@ frm.Position = UDim2.new(0.8998,0,0.0549,0)
 frm.BackgroundTransparency = 1
 frm.BorderSizePixel = 0
 frm.Parent = ui
---Instance.new("UIListLayout",frm)
-local layout = Instance.new("UIGridLayout")
-layout.CellPadding = UDim2.new(0,0,0.0001,0)
-layout.SortOrder = Enum.SortOrder.LayoutOrder
-layout.CellSize = UDim2.new(0,183,0,25)
-layout.HorizontalAlignment = Enum.HorizontalAlignment.Left
-layout.Parent = frm
+Instance.new("UIListLayout",frm)
 local mark = Instance.new("TextLabel")
 mark.Position = UDim2.new(0.8998)
 mark.Size = UDim2.new(0,167,0,50)
@@ -43,14 +37,14 @@ end)
 
 function ArrayLib.Add(Name,Suffix)
     local newname
-    if Suffix then
+    if Suffix and Suffix ~= "" then
         newname = Name.." - "..Suffix
     else
         newname = Name
     end
     local label = Instance.new("TextLabel")
     label.Name = Name
-    label.Text = newname.." "
+    label.Text = newname
     label.Size = UDim2.new(0,183,0,25)
     label.BackgroundTransparency = 1
     label.TextStrokeTransparency = shared["CometConfigs"].StrokeTransparency
@@ -59,7 +53,6 @@ function ArrayLib.Add(Name,Suffix)
     local TextScale = label.AbsoluteSize.Y * 0.7
     label.TextSize = TextScale
     local size = game:GetService("TextService"):GetTextSize(newname,TextScale,Enum.Font.SourceSans,Vector2.new(1000000,1000000))
-    label.TextXAlignment = Enum.TextXAlignment.Right
     label.LayoutOrder = -size.X
     spawn(function()
         repeat
