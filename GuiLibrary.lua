@@ -532,7 +532,11 @@ function lib:CreateWindow()
                         callback(true)
                     end)
                     spawn(function()
-                        array.Add(data["Name"])
+                        if data["Suffix"] ~= nil then
+                            array.Add(data["Name"],data["Suffix"]())
+                        else
+                            array.Add(data["Name"])
+                        end
                     end)
                     spawn(function()
                         createnotification(title, "Enabled "..title, 4, true)
@@ -574,7 +578,11 @@ function lib:CreateWindow()
                             callback(true)
                         end)
                         spawn(function()
-                            array.Add(data["Name"])
+                            if data["Suffix"] ~= nil then
+                                array.Add(data["Name"],data["Suffix"]())
+                            else
+                                array.Add(data["Name"])
+                            end
                         end)
                         configtable[title]["IsToggled"] = true
                         toggle.BackgroundColor3 = tabname.TextColor3
