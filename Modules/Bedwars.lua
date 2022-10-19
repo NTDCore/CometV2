@@ -1865,7 +1865,7 @@ runcode(function()
                 v.Material = (Enabled and Enum.Material.SmoothPlastic or (v.Name:find("glass") and enum.Material.SmoothPlastic or Enum.Material.Fabric))
                 for i2,v2 in pairs(v:GetChildren()) do
                     if v2:IsA("Texture") then
-                        v.Transparency = (Enabled and 1) or 0
+                        v2.Transparency = (Enabled and 1) or 0
                     end
                 end
             end
