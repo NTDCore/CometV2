@@ -423,7 +423,7 @@ runcode(function()
 end)
 
 runcode(function()
-    local SpeedVal = {["Value"] = 0.11}
+    local SpeedVal = {["Value"] = 0.05}
     local Enabled = false
     local Mode = {["Value"] = "CFrame"}
     local Speed = Tabs["Blatant"]:CreateToggle({
@@ -451,7 +451,7 @@ runcode(function()
         ["Function"] = function() end,
         ["Min"] = 0,
         ["Max"] = 1,
-        ["Default"] = 0.135,
+        ["Default"] = 0.05,
     })
 end)
 
@@ -464,7 +464,7 @@ runcode(function()
     local olddeflate
     local velo
     local Enabled = false
-    local Mode = {["Value"] = "Moonsoon"}
+    local Mode = {["Value"] = "Straight"}
     local Fly = Tabs["Blatant"]:CreateToggle({
         ["Name"] = "Fly",
         ["Callback"] = function(Callback)
@@ -556,6 +556,10 @@ runcode(function()
                                 end
                                 task.wait(0.05)
                                 velo.Velocity = Vector3.new(0,0,0)
+			elseif Mode["Value"] == "Straight" then
+                                velo.Velocity = Vector3.new(0,3,0)
+                                task.wait(0.01)
+                                velo.Velocity = Vector3.new(0,0,0)
                             else
                                 Mode["Value"] = "Long"
                                 lib["ToggleFuncs"]["Fly"](true)
@@ -586,8 +590,8 @@ runcode(function()
         ["Function"] = function(v) 
             Mode["Value"] = v
         end,
-        ["List"] = {"Long","Funny","FunnyOld","Moonsoon","Bounce","Bounce2"},
-        ["Default"] = "Moonsoon"
+        ["List"] = {"Long","Funny","FunnyOld","Moonsoon","Bounce","Bounce2","Straight"},
+        ["Default"] = "Straight"
     })
 end)
 
