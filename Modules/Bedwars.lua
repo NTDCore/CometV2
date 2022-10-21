@@ -1827,7 +1827,7 @@ runcode(function()
             if Enabled then
                 Connection = game:GetService("RunService").RenderStepped:Connect(function()
                     local nearest = getNearestPlayer(Distance["Value"])
-                    if nearest ~= nil then
+                    if nearest ~= nil and nearest.Name ~= lplr.Name then
                         cam.CFrame = CFrame.new(cam.CFrame.Position, nearest.Character:FindFirstChild("Head").Position)
                     end
                 end)
@@ -1898,134 +1898,6 @@ runcode(function()
                 texturemainfunction()
             else
                 texturemainfunction()
-            end
-        end
-    })
-end)
-
-runcode(function()
-    local Enabled = false
-    local items = {"iron","diamond","emerald","void_crystal"}
-    function Deposit()
-        local inv = lplr.Character:FindFirstChild("InventoryFolder").Value
-        local personal = game:GetService("ReplicatedStorage").Inventories:FindFirstChild(lplr.Name.."_personal")
-        for i,v in pairs(inv:GetChildren()) do
-            local v2 = string.lower(v.Name)
-            if table.find(items,v2) then
-                Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(personal)
-                Client:GetNamespace("Inventory"):Get("ChestGiveItem"):CallServer(
-                    personal,
-                    v
-                )
-                Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
-            end
-        end
-    end
-    function Withdraw()
-        local inv = lplr.Character:FindFirstChild("InventoryFolder").Value
-        local personal = game:GetService("ReplicatedStorage").Inventories:FindFirstChild(lplr.Name.."_personal")
-        for i,v in pairs(personal:GetChildren()) do
-            local v2 = string.lower(v.Name)
-            if table.find(items,v2) then
-                Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(personal)
-                Client:GetNamespace("Inventory"):Get("ChestGetItem"):CallServer(
-                    personal,
-                    v
-                )
-                Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
-            end
-        end
-    end
-    function NearShop()
-        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-            if string.lower(v.Name):find("_shop") and not game:GetService("Players"):FindFirstChild(v.Name) then
-                local mag = (v.Position - lplr.Character:FindFirstChild("HumanoidRootPart").Position).Magnitude
-                if mag < 20 then
-                    return true
-                end
-            end
-        end
-        return false
-    end
-    function HasItems()
-        local inv = lplr.Character:FindFirstChild("InventoryFolder").Value
-        for i,v in pairs(inv:GetChildren()) do
-            local v2 = string.lower(v.Name)
-            if table.find(items,v2) then
-                return true
-            end
-        end
-        return false
-    end
-    local AutoBank = Tabs["Utility"]:CreateToggle({
-        ["Name"] = "AutoBank",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                Deposit()
-                spawn(function()
-                    while task.wait() do
-                        if not Enabled then return end
-                        if IsAlive() then
-                            if NearShop() == true then
-                                Withdraw()
-                            else
-                                if HasItems() == true then
-                                    Deposit()
-                                end
-                            end
-                        end
-                    end
-                end)
-            else
-                Withdraw()
-            end
-        end
-    })
-end)
-
-runcode(function()
-    function getitem(itm)
-        if lplr.Character:FindFirstChild("InventoryFolder").Value:FindFirstChild(itm) then
-            return true
-        end
-        return false
-    end
-    function placepos()
-        local p = lplr.Character.PrimaryPart
-        local x = math.round(p.Position.X/3)
-        local y = math.round(p.Position.Y/3)
-        local z = math.round(p.Position.Z/3)
-        return Vector3.new(x,y-1,z)
-    end
-    local velo
-    local Enabled = false
-    local FastFly = Tabs["Blatant"]:CreateToggle({
-        ["Name"] = "FastFly",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                    velo = Instance.new("BodyVelocity")
-                    velo.MaxForce = Vector3.new(9e9,9e9,9e9)
-                    velo.Velocity = Vector3.new(0,3,0)
-                    velo.Parent = lplr.Character:FindFirstChild("HumanoidRootPart")
-                    if getitem("tnt") then
-                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.PlaceBlock:InvokeServer({
-                            ["position"] = placepos(),
-                            ["blockType"] = "tnt"
-                        })
-                        task.wait(3)
-                    elseif getitem("rocket_belt") then
-                        game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("ROCKET_BELT")
-                    else
-                        lib["ToggleFuncs"]["FastFly"](true)
-                        return
-                    end
-                    velo.Velocity = lplr.Character:FindFirstChild("HumanoidRootPart").CFrame.LookVector * 100
-                end)
-            else
-                velo:Destroy()
             end
         end
     })
