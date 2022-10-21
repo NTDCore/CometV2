@@ -133,7 +133,7 @@ function GetMatchState()
 end
 function getNearestPlayer(maxdist)
     local obj = lplr
-    local dist = 99e99
+    local dist = math.huge
     for i,v in pairs(game:GetService("Players"):GetChildren()) do
         if v.Team ~= lplr.Team and v ~= lplr and IsAlive(v) then
             local mag = (v.Character:FindFirstChild("HumanoidRootPart").Position - lplr.Character:FindFirstChild("HumanoidRootPart").Position).Magnitude
@@ -196,6 +196,15 @@ runcode(function()
                                 task.wait(0.3)
                                 lplr.Character:FindFirstChild("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
                             end
+                        elseif Mode["Value"] == "BodyVeloUp" then
+                            local velo = Instance.new("BodyVelocity")
+                            velo.MaxForce = Vector3.new(0,9e9,0)
+                            velo.Parent = lplr.Character:FindFirstChild("HumanoidRootPart")
+                            for i = 1,shared.times do
+                                task.wait(shared.del)
+                                velo.Velocity = Vector3.new(0,i*shared.multiplier,0)
+                            end
+                            velo:Destroy()
                         end
                         task.wait(0.25)
                         AntiVoiding = false
@@ -211,7 +220,7 @@ runcode(function()
     Mode = AntiVoid:CreateDropDown({
         ["Name"] = "Mode",
         ["Function"] = function() end,
-        ["List"] = {"VeloUp","Hop"},
+        ["List"] = {"VeloUp","BodyVeloUp","Hop"},
         ["Default"] = "VeloUp"
     })
 end)
@@ -423,7 +432,7 @@ runcode(function()
 end)
 
 runcode(function()
-    local SpeedVal = {["Value"] = 0.05}
+    local SpeedVal = {["Value"] = 0.11}
     local Enabled = false
     local Mode = {["Value"] = "CFrame"}
     local Speed = Tabs["Blatant"]:CreateToggle({
@@ -451,7 +460,7 @@ runcode(function()
         ["Function"] = function() end,
         ["Min"] = 0,
         ["Max"] = 1,
-        ["Default"] = 0.05,
+        ["Default"] = 0.135,
     })
 end)
 
@@ -464,7 +473,7 @@ runcode(function()
     local olddeflate
     local velo
     local Enabled = false
-    local Mode = {["Value"] = "Straight"}
+    local Mode = {["Value"] = "Moonsoon"}
     local Fly = Tabs["Blatant"]:CreateToggle({
         ["Name"] = "Fly",
         ["Callback"] = function(Callback)
@@ -556,12 +565,19 @@ runcode(function()
                                 end
                                 task.wait(0.05)
                                 velo.Velocity = Vector3.new(0,0,0)
-			elseif Mode["Value"] == "Straight" then
-                                velo.Velocity = Vector3.new(0,3,0)
-                                task.wait(0.01)
-                                velo.Velocity = Vector3.new(0,0,0)
+                            elseif Mode["Value"] == "Bounce3" then
+                                for i = 1,3 do
+                                    task.wait()
+                                    if not Enabled then return end
+                                    velo.Velocity = Vector3.new(0,i*1.25,0)
+                                end
+                                for i = 1,3 do
+                                    task.wait()
+                                    if not Enabled then return end
+                                    velo.Velocity = Vector3.new(0,-i*1,0)
+                                end
                             else
-                                Mode["Value"] = "Long"
+                                Mode["Value"] = "Bounce3"
                                 lib["ToggleFuncs"]["Fly"](true)
                                 task.wait(0.1)
                                 lib["ToggleFuncs"]["Fly"](true)
@@ -590,8 +606,8 @@ runcode(function()
         ["Function"] = function(v) 
             Mode["Value"] = v
         end,
-        ["List"] = {"Long","Funny","FunnyOld","Moonsoon","Bounce","Bounce2","Straight"},
-        ["Default"] = "Straight"
+        ["List"] = {"Long","Funny","FunnyOld","Moonsoon","Bounce","Bounce2","Bounce3"},
+        ["Default"] = "Bounce3"
     })
 end)
 
@@ -979,7 +995,6 @@ runcode(function()
                                 end
                             end)
                             if sword ~= nil then
-                                DidAttack = true
                                 bedwars["SwordController"].lastAttack = game:GetService("Workspace"):GetServerTimeNow() - 0.11
                                 HitRemote:SendToServer({
                                     ["weapon"] = sword.tool,
@@ -1620,7 +1635,7 @@ runcode(function()
                 local vec,onscreen = cam:worldToViewportPoint(plr.Character:FindFirstChild("Head").Position)
                 if onscreen then
                     tag.Visible = true
-                    tag.Position = Vector2.new(vec.X,vec.Y)
+                    tag.Position = Vector2.new(vec.X,vec.Y+3)
                     tag.Text = (plr.DisplayName or plr.Name).." "..math.floor(plr.Character:FindFirstChild("Humanoid").Health).."HP"
                 else
                     tag.Visible = false
@@ -1812,7 +1827,7 @@ runcode(function()
             if Enabled then
                 Connection = game:GetService("RunService").RenderStepped:Connect(function()
                     local nearest = getNearestPlayer(Distance["Value"])
-                    if nearest ~= nil and nearest.Name ~= lplr.Name then
+                    if nearest ~= nil then
                         cam.CFrame = CFrame.new(cam.CFrame.Position, nearest.Character:FindFirstChild("Head").Position)
                     end
                 end)
@@ -1883,6 +1898,134 @@ runcode(function()
                 texturemainfunction()
             else
                 texturemainfunction()
+            end
+        end
+    })
+end)
+
+runcode(function()
+    local Enabled = false
+    local items = {"iron","diamond","emerald","void_crystal"}
+    function Deposit()
+        local inv = lplr.Character:FindFirstChild("InventoryFolder").Value
+        local personal = game:GetService("ReplicatedStorage").Inventories:FindFirstChild(lplr.Name.."_personal")
+        for i,v in pairs(inv:GetChildren()) do
+            local v2 = string.lower(v.Name)
+            if table.find(items,v2) then
+                Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(personal)
+                Client:GetNamespace("Inventory"):Get("ChestGiveItem"):CallServer(
+                    personal,
+                    v
+                )
+                Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
+            end
+        end
+    end
+    function Withdraw()
+        local inv = lplr.Character:FindFirstChild("InventoryFolder").Value
+        local personal = game:GetService("ReplicatedStorage").Inventories:FindFirstChild(lplr.Name.."_personal")
+        for i,v in pairs(personal:GetChildren()) do
+            local v2 = string.lower(v.Name)
+            if table.find(items,v2) then
+                Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(personal)
+                Client:GetNamespace("Inventory"):Get("ChestGetItem"):CallServer(
+                    personal,
+                    v
+                )
+                Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
+            end
+        end
+    end
+    function NearShop()
+        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+            if string.lower(v.Name):find("_shop") and not game:GetService("Players"):FindFirstChild(v.Name) then
+                local mag = (v.Position - lplr.Character:FindFirstChild("HumanoidRootPart").Position).Magnitude
+                if mag < 20 then
+                    return true
+                end
+            end
+        end
+        return false
+    end
+    function HasItems()
+        local inv = lplr.Character:FindFirstChild("InventoryFolder").Value
+        for i,v in pairs(inv:GetChildren()) do
+            local v2 = string.lower(v.Name)
+            if table.find(items,v2) then
+                return true
+            end
+        end
+        return false
+    end
+    local AutoBank = Tabs["Utility"]:CreateToggle({
+        ["Name"] = "AutoBank",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                Deposit()
+                spawn(function()
+                    while task.wait() do
+                        if not Enabled then return end
+                        if IsAlive() then
+                            if NearShop() == true then
+                                Withdraw()
+                            else
+                                if HasItems() == true then
+                                    Deposit()
+                                end
+                            end
+                        end
+                    end
+                end)
+            else
+                Withdraw()
+            end
+        end
+    })
+end)
+
+runcode(function()
+    function getitem(itm)
+        if lplr.Character:FindFirstChild("InventoryFolder").Value:FindFirstChild(itm) then
+            return true
+        end
+        return false
+    end
+    function placepos()
+        local p = lplr.Character.PrimaryPart
+        local x = math.round(p.Position.X/3)
+        local y = math.round(p.Position.Y/3)
+        local z = math.round(p.Position.Z/3)
+        return Vector3.new(x,y-1,z)
+    end
+    local velo
+    local Enabled = false
+    local FastFly = Tabs["Blatant"]:CreateToggle({
+        ["Name"] = "FastFly",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                spawn(function()
+                    velo = Instance.new("BodyVelocity")
+                    velo.MaxForce = Vector3.new(9e9,9e9,9e9)
+                    velo.Velocity = Vector3.new(0,3,0)
+                    velo.Parent = lplr.Character:FindFirstChild("HumanoidRootPart")
+                    if getitem("tnt") then
+                        game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.PlaceBlock:InvokeServer({
+                            ["position"] = placepos(),
+                            ["blockType"] = "tnt"
+                        })
+                        task.wait(3)
+                    elseif getitem("rocket_belt") then
+                        game:GetService("ReplicatedStorage"):FindFirstChild("events-@easy-games/game-core:shared/game-core-networking@getEvents.Events").useAbility:FireServer("ROCKET_BELT")
+                    else
+                        lib["ToggleFuncs"]["FastFly"](true)
+                        return
+                    end
+                    velo.Velocity = lplr.Character:FindFirstChild("HumanoidRootPart").CFrame.LookVector * 100
+                end)
+            else
+                velo:Destroy()
             end
         end
     })
