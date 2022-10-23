@@ -1930,11 +1930,11 @@ runcode(function()
         ["Callback"] = function(Callback)
             Enabled = Callback
             if Enabled then
-              getgenv().AutobuyWool = true;
+              getgenv().AutobuyWool = true
 		if getgenv().AutobuyWool == true then			
                  game:GetService("ReplicatedStorage").rbxts_include.node_modules.net.out._NetManaged.BedwarsPurchaseItem:InvokeServer({["shopItem"] = {["currency"] = "iron",["itemType"] = "wool_white",["amount"] = 16,["price"] = 8,["category"] = "Blocks"}})
             else
-                getgenv().AutobuyWool = false;
+                getgenv().AutobuyWool = false
             end
         end
     })
