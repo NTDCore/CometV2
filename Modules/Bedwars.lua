@@ -1924,6 +1924,7 @@ end)
 
 runcode(function()
     local Enabled = false
+    local Value = {["Value"] = 18}
     local AutoBuy = Tabs["Utility"]:CreateToggle({
         ["Name"] = "AutoBuy",
         ["Callback"] = function(Callback)
@@ -1931,7 +1932,7 @@ runcode(function()
             if Enabled then
                 spawn(function()
                    getgenv().AutobuyWool = true;
-					while wait(AutobuyWool2DELAY) do
+					while wait(Value) do
 						if getgenv().AutobuyWool == true then
 							game:GetService("ReplicatedStorage").rbxts_include.node_modules.net.out._NetManaged.BedwarsPurchaseItem:InvokeServer({["shopItem"] = {["currency"] = "iron",["itemType"] = "wool_white",["amount"] = 16,["price"] = 8,["category"] = "Blocks"}})
 						end
@@ -1941,9 +1942,9 @@ runcode(function()
                 end
             end
     })
-Distance = AimAssist:CreateSlider({
+Value = AutoBuy:CreateSlider({
         ["Name"] = "Distance",
-        ["Function"] = function(AutobuyWool2DELAY = val) end,
+        ["Function"] = function() end,
         ["Min"] = 0,
         ["Max"] = 21,
         ["Default"] = 21,
