@@ -1925,7 +1925,7 @@ end)
 
 runcode(function()
     local Enabled = false
-    local AutobuyWool = Tabs["Combat"]:CreateToggle({
+    local AutobuyWool = Tabs["Utility"]:CreateToggle({
         ["Name"] = "AutobuyWool",
         ["Callback"] = function(Callback)
             Enabled = Callback
