@@ -1951,7 +1951,7 @@ Value = AutoBuy:CreateSlider({
         ["Round"] = 1
     })
 end)			
-end)		
+	
 
 
 
