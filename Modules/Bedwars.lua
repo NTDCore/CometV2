@@ -1930,12 +1930,27 @@ runcode(function()
             Enabled = Callback
             if Enabled then
                 spawn(function()
-                    repeat task.wait(3) until GetMatchState() == 1 or not Enabled
-                    if not Enabled then return end
-                    game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.BedwarsPurchaseItem:InvokeServer({["shopItem"] = {["currency"] = "iron",["itemType"] = "wool_white",["amount"] = 16,["price"] = 8,["category"] = "Blocks"}})
-                    return
-                end)
+                   getgenv().AutobuyWool = true;
+					while wait(AutobuyWool2DELAY) do
+						if getgenv().AutobuyWool == true then
+							game:GetService("ReplicatedStorage").rbxts_include.node_modules.net.out._NetManaged.BedwarsPurchaseItem:InvokeServer({["shopItem"] = {["currency"] = "iron",["itemType"] = "wool_white",["amount"] = 16,["price"] = 8,["category"] = "Blocks"}})
+						end
+					end)
+				else
+					getgenv().AutobuyWool = false;
+                end
             end
-        end
     })
-end)
+Distance = AimAssist:CreateSlider({
+        ["Name"] = "Distance",
+        ["Function"] = function(AutobuyWool2DELAY = val) end,
+        ["Min"] = 0,
+        ["Max"] = 21,
+        ["Default"] = 21,
+        ["Round"] = 1
+    })
+end)			
+end)		
+
+
+
