@@ -1924,7 +1924,7 @@ end)
 
 runcode(function()
     local Enabled = false
-    local Value = {["Value"] = 18}
+    local AutobuyWool2DELAY = {["Value"] = 21}
     local AutoBuy = Tabs["Utility"]:CreateToggle({
         ["Name"] = "AutoBuy",
         ["Callback"] = function(Callback)
