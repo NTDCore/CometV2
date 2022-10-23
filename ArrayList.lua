@@ -1,78 +1,63 @@
-local ArrayLib = {}
-local ui = Instance.new("ScreenGui")
-if syn then syn.protect_gui(ui) end
-ui.ResetOnSpawn = false
-ui.Enabled = shared["CometConfigs"].Enabled
-ui.Parent = game:GetService("CoreGui")
-local frm = Instance.new("Frame")
-frm.Size = UDim2.new(0.1,0,0.9451,0)
-frm.Position = UDim2.new(0.8998,0,0.0549,0)
-frm.BackgroundTransparency = 1
-frm.BorderSizePixel = 0
-frm.Parent = ui
-local layout = Instance.new("UIGridLayout")
-layout.CellPadding = UDim2.new(0,0,0.0001,0)
-layout.SortOrder = Enum.SortOrder.LayoutOrder
-layout.CellSize = UDim2.new(0,183,0,25)
-layout.Parent = frm
-local mark = Instance.new("TextLabel")
-mark.Position = UDim2.new(0.8998)
-mark.Size = UDim2.new(0,167,0,50)
-mark.BackgroundTransparency = 1
-mark.Text = "Comet V3"
-mark.TextColor3 = Color3.fromHSV(tick()%5/5,1,1)
-mark.TextScaled = true
-mark.Parent = ui
+local array = Instance.new("ScreenGui", game.CoreGui)
+local arrayFrame = Instance.new("Frame", array)
+arrayFrame.Size = UDim2.new(0.13, 0, 1, 0)
+arrayFrame.Position = UDim2.new(0.87, 0, 0, 0)
+arrayFrame.BackgroundTransparency = 1
+local Grid = Instance.new("UIGridLayout",arrayFrame)
+Grid.CellPadding = UDim2.new(0, 0, 0.0001, 0)
+Grid.SortOrder = Enum.SortOrder.LayoutOrder
+Grid.CellSize = UDim2.new(1, 0, 0.0275, 0)
+Grid.HorizontalAlignment = "Left"
 
-spawn(function()
+task.spawn(function()
     repeat
-        task.wait(1)
-        ui.Enabled = shared["CometConfigs"].Enabled
-    until not ui
-end)
-spawn(function()
-    repeat
-        task.wait()
-        mark.TextColor3 = Color3.fromHSV(tick()%5/5,1,1)
-        mark.TextStrokeTransparency = shared["CometConfigs"].StrokeTransparency
-        mark.Visible = shared["CometConfigs"].Watermark
-    until not mark or not ui or not frm
+         task.wait(1)
+         array.Enabled = getgenv().Array
+     until true == false
 end)
 
-function ArrayLib.Add(Name,Suffix)
-    local newname
-    if Suffix and Suffix ~= "" then
-        newname = Name.." - "..Suffix
-    else
-        newname = Name
+Arraylist = {
+    Add = function(Name,Suffix)
+        local Text = Instance.new("TextLabel",arrayFrame)
+        local newName
+        if Suffix then
+            newName = Name.." - "..Suffix
+        else
+            newName = Name
+        end
+        Text.Name = Name
+        Text.BackgroundTransparency = 1
+        Text.Size = UDim2.new(0,0,1,0)
+        Text.Font = Enum.Font.Gotham
+        local TextScale = Text.AbsoluteSize.Y * 0.7
+        Text.TextSize = TextScale
+        Text.Text = newName.." "
+        local size = game:GetService("TextService"):GetTextSize(newName, TextScale, Enum.Font.Gotham, Vector2.new(1000000, 1000000))
+        Text.TextXAlignment = "Right"
+        Text.LayoutOrder = -size.X
+        task.spawn(function()
+            repeat
+                task.wait()
+                Text.TextStrokeTransparency = getgenv().ArraylistStrokeTransparency
+                Text.TextColor3 = getgenv().HUDColor
+            until not Text
+        end)
+    end,
+    Remove = function(Name)
+        if arrayFrame:FindFirstChild(Name) then
+            arrayFrame:FindFirstChild(Name):Destroy()
+        end
+    end,
+}
+
+task.spawn(function()
+    task.wait(4)
+    repeat task.wait(1) until Uninjected == true
+    for i,v in pairs(array:GetChildren()) do
+        v:Destroy()
     end
-    local label = Instance.new("TextLabel")
-    label.Name = Name
-    label.Text = newname
-    label.Size = UDim2.new(0,183,0,25)
-    label.BackgroundTransparency = 1
-    label.TextStrokeTransparency = shared["CometConfigs"].StrokeTransparency
-    label.TextColor3 = Color3.fromHSV(tick()%5/5,1,1)
-    label.Parent = frm
-    local TextScale = label.AbsoluteSize.Y * 0.7
-    label.TextSize = TextScale
-    local size = game:GetService("TextService"):GetTextSize(newname,TextScale,Enum.Font.SourceSans,Vector2.new(1000000,1000000))
-    label.LayoutOrder = -size.X
-    spawn(function()
-        repeat
-            task.wait()
-            label.TextStrokeTransparency = shared["CometConfigs"].StrokeTransparency
-            label.TextColor3 = Color3.fromHSV(tick()%5/5,1,1)
-        until not label
-    end)
-end
+    array:Destroy()
+end)
 
-function ArrayLib.Remove(Name)
-    if frm:FindFirstChild(Name) then
-        frm:FindFirstChild(Name):Destroy()
-    end
-end
 
-function ArrayLib.SetDrag(val) end
-
-return ArrayLib
+return Arraylist
