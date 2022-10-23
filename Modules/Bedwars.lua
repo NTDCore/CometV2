@@ -1921,3 +1921,21 @@ runcode(function()
         end
     })
 end)
+
+runcode(function()
+    local Enabled = false
+    local AutoBuy = Tabs["Utility"]:CreateToggle({
+        ["Name"] = "AutoBuy",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                spawn(function()
+                    repeat task.wait(3) until GetMatchState() == 1 or not Enabled
+                    if not Enabled then return end
+                    game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.BedwarsPurchaseItem:InvokeServer({["shopItem"] = {["currency"] = "iron",["itemType"] = "wool_white",["amount"] = 16,["price"] = 8,["category"] = "Blocks"}})
+                    return
+                end)
+            end
+        end
+    })
+end)
