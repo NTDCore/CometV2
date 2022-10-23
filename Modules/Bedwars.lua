@@ -1922,35 +1922,7 @@ runcode(function()
     })
 end)
 
-runcode(function()
-    local Enabled = false
-    local AutobuyWool2DELAY = {["Value"] = 21}
-    local AutoBuy = Tabs["Utility"]:CreateToggle({
-        ["Name"] = "AutoBuy",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                   getgenv().AutobuyWool = true;
-					while wait(AutobuyWool2DELAY) do
-						if getgenv().AutobuyWool == true then
-							game:GetService("ReplicatedStorage").rbxts_include.node_modules.net.out._NetManaged.BedwarsPurchaseItem:InvokeServer({["shopItem"] = {["currency"] = "iron",["itemType"] = "wool_white",["amount"] = 16,["price"] = 8,["category"] = "Blocks"}})
-						end
-					end)
-				else
-					getgenv().AutobuyWool = false;
-                end
-            end
-    })
-Value = AutoBuy:CreateSlider({
-        ["Name"] = "Distance",
-        ["Function"] = function(AutobuyWool2DELAY) end,
-        ["Min"] = 0,
-        ["Max"] = 21,
-        ["Default"] = 21,
-        ["Round"] = 1
-    })
-end)			
+
 	
 
 
