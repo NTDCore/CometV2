@@ -1983,7 +1983,7 @@ local tppos
 				rayparams.FilterDescendantsInstances = {workspace.Map}
 				rayparams.FilterType = Enum.RaycastFilterType.Whitelist
 				local ray = workspace:Raycast(mousepos.Origin, mousepos.Direction * 10000, rayparams)
-				if ray then tppos = ray.Position createwarning("DamageTP", "set pos", 3) end
+				if ray then tppos = ray.Position CreateNotification("DamageTP","set pos",3) end
 				damagetpmod["ToggleButton"](false)
 			end
 		end
