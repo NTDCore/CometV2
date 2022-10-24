@@ -53,7 +53,6 @@ local bedwars = {
     ["BlockCPSConstants"] = require(game:GetService("ReplicatedStorage").TS["shared-constants"]).CpsConstants,
     ["BalloonController"] = KnitClient.Controllers.BalloonController,
     ["ViewmodelController"] = KnitClient.Controllers.ViewmodelController,
-    ["ShockwaveController"] = KnitClient.Controllers.ShockwaveTurretController,
 }
 function CreateNotification(title, text, delay2)
     spawn(function()
