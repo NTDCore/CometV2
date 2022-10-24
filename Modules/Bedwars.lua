@@ -10,7 +10,6 @@ if shared["betterisfile"]("CometV2/GuiLibrary") then
     lib = loadstring(readfile("CometV2/GuiLibrary.lua"))()
 else
     lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Ln3242/CometV2/main/GuiLibrary.lua"))()
-	runcode(function()
 	local textlabel = Instance.new("TextLabel")
 	textlabel.Size = UDim2.new(1, 0, 0, 36)
 	textlabel.Text = "Moderators can ban you at any time, Always use alts."
@@ -25,7 +24,6 @@ else
 		repeat task.wait() until matchState ~= 0
 		textlabel:Remove()
 	end)
-end)
 end
 local getasset = getsynasset or getcustomasset
 local ScreenGuitwo = game:GetService("CoreGui").RektskyNotificationGui
