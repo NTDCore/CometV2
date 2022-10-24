@@ -1973,6 +1973,8 @@ local tppos
 			end
 		end)
 	end)
+    local Enabled = false
+    local damagetpmod = false
     local DamageTP = Tabs["Exploits"]:CreateToggle({
         ["Name"] = "FPSBoost",
         ["Callback"] = function(Callback)
