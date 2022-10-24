@@ -1921,3 +1921,35 @@ runcode(function()
         end
     })
 end)
+runcode(function()
+    local Enabled = false
+    local EmeraldsExploit = Tabs["Exploits"]:CreateToggle({
+        ["Name"] = "GrabEmeralds",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                spawn(function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.emerald.CFrame
+                end)
+            end
+        end
+    })
+end)
+ 
+runcode(function()
+    local Enabled = false
+    local Skywars = Tabs["Exploits"]:CreateToggle({
+        ["Name"] = "AutoSkywars",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+               local spawncage = workspace:FindFirstChild("spawn_cage")
+		if spawncage then
+			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = game.Players.LocalPlayer.Character.PrimaryPart.CFrame * CFrame.new(0,-6.5,0)
+		end
+            else
+               print("Disabled")
+            end
+        end
+    })
+end)
