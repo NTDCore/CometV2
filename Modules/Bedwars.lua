@@ -1923,22 +1923,46 @@ runcode(function()
 end)
 
 
+
 runcode(function()
-    local Enabled = false
-    local AutobuyWool = Tabs["Utility"]:CreateToggle({
-        ["Name"] = "AutobuyWool",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-               getgenv().AutobuyWool = true
-		if getgenv().AutobuyWool == true then
-		    while true do
-game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.BedwarsPurchaseItem:InvokeServer({["shopItem"] = {["currency"] = "iron",["itemType"] = "wool_white",["amount"] = 16,["price"] = 8,["category"] = "Blocks"}})
-		end
-end
-            else
-                getgenv().AutobuyWool = false
-            end
+local oldpos = Vector3.new(0, 0, 0)
+local function getScaffold(vec, diagonaltoggle)
+    local realvec = Vector3.new(math.floor((vec.X / 3) + 0.5) * 3, math.floor((vec.Y / 3) + 0.5) * 3, math.floor((vec.Z / 3) + 0.5) * 3) 
+    local newpos = (oldpos - realvec)
+    local returedpos = realvec
+    if entity.isAlive then
+        local angle = math.deg(math.atan2(-lplr.Character.Humanoid.MoveDirection.X, -lplr.Character.Humanoid.MoveDirection.Z))
+        local goingdiagonal = (angle >= 130 and angle <= 150) or (angle <= -35 and angle >= -50) or (angle >= 35 and angle <= 50) or (angle <= -130 and angle >= -150)
+        if goingdiagonal and ((newpos.X == 0 and newpos.Z ~= 0) or (newpos.X ~= 0 and newpos.Z == 0)) and diagonaltoggle then
+            return oldpos
         end
-    })
-end)	
+    end
+    return realvec
+end
+
+local yes
+local yestwo
+local sussyfunnything
+local Enabled = false
+local Scaffold = Tabs["World"]:CreateToggle({
+    ["Name"] = "Scaffold",
+    ["Callback"] = function(v)
+       Enabled = Callback
+            if Enabled then
+        if (Enabled) and entity.isAlive then
+            spawn(function()
+                yestwo = RunService.Heartbeat:Connect(function(step)
+                    if (not sussythingy) then return end
+                    local y = lplr.Character.HumanoidRootPart.Position.y
+                    local x = lplr.Character.HumanoidRootPart.Position.x
+                    local z = lplr.Character.HumanoidRootPart.Position.z
+                    local blockpos = get((lplr.Character.Head.Position) + Vector3.new(1, -math.floor(lplr.Character.Humanoid.HipHeight * 3), 0) + lplr.Character.Humanoid.MoveDirection)
+                    placeblockthing(blockpos, getwool())
+                end)
+            end)
+        else
+            yestwo:Disconnect()
+        end
+    end
+})
+end)
