@@ -1959,7 +1959,7 @@ end)
 
 runcode(function()
     local Enabled = false
-    local DiamondsExploit = Tabs["CollectAllDrops"]:CreateToggle({
+    local CollectAllDropsExploit = Tabs["CollectAllDrops"]:CreateToggle({
         ["Name"] = "CollectAllDrops",
         ["Callback"] = function(Callback)
             Enabled = Callback
