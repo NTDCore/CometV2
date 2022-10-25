@@ -1920,20 +1920,20 @@ runcode(function()
         end
     })
 end)
-runcode(function()
-    local Enabled = false
-    local EmeraldsExploit = Tabs["Exploits"]:CreateToggle({
-        ["Name"] = "GrabEmeralds",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.emerald.CFrame
-                end)
-            end
-        end
-    })
-end)
+--runcode(function()
+    --local Enabled = false
+    --local EmeraldsExploit = Tabs["Exploits"]:CreateToggle({
+        --["Name"] = "GrabEmeralds",
+        --["Callback"] = function(Callback)
+            --Enabled = Callback
+            --if Enabled then
+                --spawn(function()
+                --game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.emerald.CFrame
+                --end)
+            --end
+        --end
+    --})
+--end)
  
 runcode(function()
     local Enabled = false
