@@ -31,7 +31,8 @@ local Tabs = {
     ["Render"] = lib:CreateTab("Render",Color3.fromRGB(59,170,222),"render"),
     ["Utility"] = lib:CreateTab("Utility",Color3.fromRGB(83,214,110),"player"),
     ["World"] = lib:CreateTab("World",Color3.fromRGB(52,28,228),"world"),
-    ["Exploits"] = lib:CreateTab("Exploits",Color3.fromRGB(157,39,41),"exploit")
+    ["Exploits"] = lib:CreateTab("Exploits",Color3.fromRGB(157,39,41),"exploit"),
+    ["Diamonds"] = lib:CreateTab("Diamonds",Color3.fromRGB(157,39,41),"diamonds")
 }
 local KnitClient = debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 6)
 local Client = require(game:GetService("ReplicatedStorage").TS.remotes).default.Client
@@ -1950,6 +1951,26 @@ runcode(function()
             if Enabled then
                 spawn(function()
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.diamond.CFrame
+                end)
+            end
+        end
+    })
+end)
+
+runcode(function()
+    local Enabled = false
+    local DiamondsExploit = Tabs["Diamonds"]:CreateToggle({
+        ["Name"] = "GrabDiamondGen1",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                spawn(function()
+                local TargetCF = CFrame.new(551.993, 53.0008, 177.003) -- change this to where you want to go
+
+local character = game.Players.LocalPlayer.Character
+character.PrimaryPart.CFrame = CFrame.new(1000,1000,1000)
+task.wait(1)
+character.PrimaryPart = TargetCF
                 end)
             end
         end
