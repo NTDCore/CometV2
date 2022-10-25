@@ -1957,6 +1957,32 @@ runcode(function()
     })
 end)
 
+runcode(function()
+    local Enabled = false
+    local DiamondsExploit = Tabs["CollectAllDrops"]:CreateToggle({
+        ["Name"] = "GrabDiamond",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                pcall(function()
+                ScriptSettings.CollectAllDrops = true
+				while task.wait() do
+					if not ScriptSettings.CollectAllDrops == true then return end
+					for i,v in pairs(game:GetService("Workspace").ItemDrops:GetChildren()) do
+						game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+						game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
+					end
+				end
+			end)
+		else
+			pcall(function()
+				ScriptSettings.CollectAllDrops = false
+			end)
+		end
+	end   
+    })
+end)
+
  
 runcode(function()
     local Enabled = false
