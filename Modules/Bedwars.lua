@@ -9,7 +9,7 @@ shared["CometConfigs"] = {
 local whiteliststhing = {}
 
 pcall(function()
-    whiteliststhing = loadstring(game:HttpGet("https://raw.githubusercontent.com/8pmX8/rektsky4roblox/main/whitelist.lua"))()
+    whiteliststhing = loadstring(game:HttpGet("https://raw.githubusercontent.com/Ln3242/CometWL/main/whitelist.lua"))()
 end)
 
 local lib
