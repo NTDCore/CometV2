@@ -1966,10 +1966,9 @@ runcode(function()
                     if targetedplr then 
                         targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("rektsky/assets/RektkyLogo.png")
                     end
-						end
  else
                CreateNotification("RektSkyIcon","Disabled next round!",5)
             end
         end
-    --})
+    })
 end)
