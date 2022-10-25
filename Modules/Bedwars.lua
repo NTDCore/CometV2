@@ -1956,7 +1956,7 @@ runcode(function()
  local sayinchat = {["Value"] = false}
     local notificationsenabled = {["Value"] = true}
     local autoreport = false
-    local autoreportthingy = Tabs["Rektsky"]:CreateToggle({
+    local autoreportthingy = Tabs["Utility"]:CreateToggle({
         ["Name"] = "AutoReport",
         ["Keybind"] = nil,
         ["Callback"] = function(v)
