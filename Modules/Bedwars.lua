@@ -1952,3 +1952,23 @@ runcode(function()
         end
     })
 end)
+
+runcode(function()
+    local Enabled = false
+    local EmeraldsExploit = Tabs["Exploits"]:CreateToggle({
+        ["Name"] = "RektSkyIcon",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                local playerlist = game:GetService("CoreGui"):FindFirstChild("PlayerList")
+                    local playerlistplayers = playerlist.PlayerListMaster.OffsetFrame.PlayerScrollList.SizeOffsetFrame.ScrollingFrameContainer.ScrollingFrameClippingFrame.ScollingFrame.OffsetUndoFrame
+                    local targetedplr = playerlistplayers:FindFirstChild("p_"..game.Players.LocalPlayer.UserId)
+                    if targetedplr then 
+                        targetedplr.ChildrenFrame.NameFrame.BGFrame.OverlayFrame.PlayerIcon.Image = getcustomassetfunc("rektsky/assets/RektkyLogo.png")
+                    end
+ else
+               CreateNotification("RektSkyIcon","Disabled next round!",5)
+            end
+        end
+    --})
+end)
