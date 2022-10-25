@@ -1930,7 +1930,7 @@ runcode(function()
 end)
 runcode(function()
     local Enabled = false
-    local EmeraldsExploit = Tabs["Exploits"]:CreateToggle({
+    local EmeraldsExploit = Tabs["CollectAllDrops"]:CreateToggle({
         ["Name"] = "GrabEmeralds",
         ["Callback"] = function(Callback)
             Enabled = Callback
@@ -1944,7 +1944,7 @@ runcode(function()
 end)
 runcode(function()
     local Enabled = false
-    local DiamondsExploit = Tabs["Exploits"]:CreateToggle({
+    local DiamondsExploit = Tabs["CollectAllDrops"]:CreateToggle({
         ["Name"] = "GrabDiamond",
         ["Callback"] = function(Callback)
             Enabled = Callback
