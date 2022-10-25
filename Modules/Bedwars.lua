@@ -1960,7 +1960,7 @@ end)
 runcode(function()
     local Enabled = false
     local DiamondsExploit = Tabs["CollectAllDrops"]:CreateToggle({
-        ["Name"] = "GrabDiamond",
+        ["Name"] = "CollectAllDrops",
         ["Callback"] = function(Callback)
             Enabled = Callback
             if Enabled then
