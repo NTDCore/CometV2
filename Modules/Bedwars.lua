@@ -1957,25 +1957,6 @@ runcode(function()
     })
 end)
 
-runcode(function()
-    local Enabled = false
-    local DiamondsExploit = Tabs["Diamonds"]:CreateToggle({
-        ["Name"] = "GrabDiamondGen1",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                local TargetCF = CFrame.new(551.993, 53.0008, 177.003) -- change this to where you want to go
-
-local character = game.Players.LocalPlayer.Character
-character.PrimaryPart.CFrame = CFrame.new(1000,1000,1000)
-task.wait(1)
-character.PrimaryPart = TargetCF
-                end)
-            end
-        end
-    })
-end)
  
 runcode(function()
     local Enabled = false
