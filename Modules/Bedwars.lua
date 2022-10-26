@@ -1965,7 +1965,7 @@ runcode(function()
             Enabled = Callback
             if Enabled then
                 spawn(function()
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.Iron.CFrame
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.iron.CFrame
                 end)
             end
         end
