@@ -745,22 +745,22 @@ runcode(function()
     end
 		
     local Enabled = false
-    local AutoWin = Tabs["Exploits"]:CreateToggle({
+    local BedTp = Tabs["Exploits"]:CreateToggle({
         ["Name"] = "BedTp",
         ["Callback"] = function(Callback)
             Enabled = Callback
             if Enabled then
                 spawn(function()
                     local beds = GetBeds()
-								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                    task.wait(2)
-                    for i,v in pairs(beds) do
-                            lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
-end
-                end)
-            end
-        end
-    })
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                          task.wait(2)
+                              for i,v in pairs(beds) do
+                                  lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
+                                end
+                         end)
+                  end
+          end
+      })
 end)
 
 runcode(function()
@@ -1959,34 +1959,6 @@ end)
 
 
 
-runcode(function()
-		function GetBeds()
-        local beds = {}	
-        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-            if string.lower(v.Name) == "bed" and v:FindFirstChild("Covers") ~= nil and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
-                table.insert(beds,v)
-            end
-        end
-        return beds
-    end
-    local Enabled = false
-    local BedTpExploit = Tabs["Utility"]:CreateToggle({
-        ["Name"] = "BedTp",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                    task.wait(2)
-                        for i,v in pairs(game:GetService("Workspace").bed:GetChildren()) do
-                                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                                       game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
-                        end
-                end)
-            end
-        end
-    })
-end)
 
  
 runcode(function()
