@@ -1997,7 +1997,7 @@ end)
 
 runcode(function()
     local Enabled = false
-    local BedTpExploit = Tabs["CollectAllDrops"]:CreateToggle({
+    local BedTpExploit = Tabs["Utility"]:CreateToggle({
         ["Name"] = "BedTp",
         ["Callback"] = function(Callback)
             Enabled = Callback
