@@ -753,8 +753,6 @@ runcode(function()
                 spawn(function()
                     local beds = GetBeds()
                     for i,v in pairs(beds) do
-			    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-									task.wait(2)
                             lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
 end
                 end)
