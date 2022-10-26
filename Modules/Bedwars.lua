@@ -743,15 +743,6 @@ runcode(function()
         end
         return beds
     end
-    function GetPlayers()
-        local players = {}
-        for i,v in pairs(game:GetService("Players"):GetPlayers()) do
-            if v.Team ~= lplr.Team and IsAlive(v) then
-                table.insert(players,v)
-            end
-        end
-        return players
-    end
     local Enabled = false
     local AutoWin = Tabs["Exploits"]:CreateToggle({
         ["Name"] = "AutoWin",
@@ -771,7 +762,7 @@ runcode(function()
                             if lplr:GetAttribute("DenyBlockBreak") == true then
                                 lplr:SetAttribute("DenyBlockBreak",nil)
                             end
-                            lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(1000,1000,1000)
+                            lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
                             local x = math.round(v.Position.X/3)
                             local y = math.round(v.Position.Y/3)
                             local z = math.round(v.Position.Z/3)
@@ -785,14 +776,6 @@ runcode(function()
                         until not v:FindFirstChild("Covers") or not v or not Enabled
                         if not Enabled then return end
                     end
-                    local players = GetPlayers()
-                    for i,v in pairs(players) do
-                        repeat
-                            task.wait(0.01)
-                            lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame + Vector3.new(0,3,0)
-                        until not IsAlive(v)
-                    end
-                    CreateNotification("AutoWin","Took "..math.abs(start - tick()).." Seconds/Ticks to win Game",5)
                 end)
             end
         end
