@@ -1988,6 +1988,8 @@ runcode(function()
  for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
             if string.lower(v.Name) == "bed" and v:FindFirstChild("Covers") ~= nil and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
                 table.insert(beds,v)
+										
+	  lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
             end
 					end
                 end)
