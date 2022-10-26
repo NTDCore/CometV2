@@ -1941,10 +1941,7 @@ runcode(function()
                         for i,v in pairs(game:GetService("Workspace").emeralds:GetChildren()) do
                                 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                                        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
-                                     end
-                              end)
                          end
-                     end
     })
 end)
 runcode(function()
@@ -1954,19 +1951,15 @@ runcode(function()
         ["Callback"] = function(Callback)
             Enabled = Callback
             if Enabled then
-                spawn(function()
-                    Enabled = Callback
-                    if Enabled then
-                            spawn(function()
-                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                                        task.wait(2)
-                                            for i,v in pairs(game:GetService("Workspace").diamond:GetChildren()) do
-                                                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                                                           game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
-                                                         end
-                                                  end)
-                                             end
-                                         end
+                Enabled = Callback
+                if Enabled then
+                    spawn(function()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                        task.wait(2)
+                            for i,v in pairs(game:GetService("Workspace").emeralds:GetChildren()) do
+                                    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                                           game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
+                             end
     })
 end)
 
@@ -1989,10 +1982,6 @@ runcode(function()
                                                     game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                                                            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
                                                          end
-                                                  end)
-                                             end
-                                         end
-    })
 end)
 
 
@@ -2009,10 +1998,7 @@ end)
                                         for i,v in pairs(game:GetService("Workspace").bed:GetChildren()) do
                                                 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                                                        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
-                                                     end
-                                              end)
                                          end
-                                     end
     })
     end)
  
