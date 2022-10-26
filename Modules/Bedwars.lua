@@ -735,11 +735,8 @@ end)
 
 runcode(function()
     function GetBeds()
-        local beds = {}
-			
+        local beds = {}	
         for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                    task.wait(0.3)
             if string.lower(v.Name) == "bed" and v:FindFirstChild("Covers") ~= nil and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
                 table.insert(beds,v)
             end
@@ -774,6 +771,8 @@ runcode(function()
                             if lplr:GetAttribute("DenyBlockBreak") == true then
                                 lplr:SetAttribute("DenyBlockBreak",nil)
                             end
+		           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                               task.wait(2)
                             lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
                             local x = math.round(v.Position.X/3)
                             local y = math.round(v.Position.Y/3)
