@@ -1957,9 +1957,26 @@ runcode(function()
     })
 end)
 
+
+
 runcode(function()
     local Enabled = false
-    local BedTpExploit = Tabs["Render"]:CreateToggle({
+    local IronsExploit = Tabs["CollectAllDrops"]:CreateToggle({
+        ["Name"] = "GrabIron",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                spawn(function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.iron.CFrame
+                end)
+            end
+        end
+    })
+end)
+
+runcode(function()
+    local Enabled = false
+    local BedTpExploit = Tabs["Utility"]:CreateToggle({
         ["Name"] = "BedTpExploit",
         ["Callback"] = function(Callback)
             Enabled = Callback
@@ -1977,23 +1994,6 @@ for i,v in pairs(game:GetService("Workspace").bed:GetChildren()) do
         end
     })
 end)
-
-runcode(function()
-    local Enabled = false
-    local IronsExploit = Tabs["CollectAllDrops"]:CreateToggle({
-        ["Name"] = "GrabIron",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.iron.CFrame
-                end)
-            end
-        end
-    })
-end)
-
-
  
 runcode(function()
     local Enabled = false
