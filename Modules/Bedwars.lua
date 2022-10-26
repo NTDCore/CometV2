@@ -1959,6 +1959,27 @@ end)
 
 runcode(function()
     local Enabled = false
+    local BedTpExploit = Tabs["Render"]:CreateToggle({
+        ["Name"] = "GrabDiamond",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                spawn(function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+        task.wait(2)
+
+for i,v in pairs(game:GetService("Workspace").bed:GetChildren()) do
+						game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+						game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
+					end
+                end)
+            end
+        end
+    })
+end)
+
+runcode(function()
+    local Enabled = false
     local IronsExploit = Tabs["CollectAllDrops"]:CreateToggle({
         ["Name"] = "GrabIron",
         ["Callback"] = function(Callback)
