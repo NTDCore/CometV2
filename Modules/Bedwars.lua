@@ -771,8 +771,7 @@ runcode(function()
                             if lplr:GetAttribute("DenyBlockBreak") == true then
                                 lplr:SetAttribute("DenyBlockBreak",nil)
                             end
-			    lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(1000,1000,1000)
-                            lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
+                            lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(1000,1000,1000)
                             local x = math.round(v.Position.X/3)
                             local y = math.round(v.Position.Y/3)
                             local z = math.round(v.Position.Z/3)
