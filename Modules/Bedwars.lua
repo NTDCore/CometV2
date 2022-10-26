@@ -763,15 +763,6 @@ runcode(function()
                                 lplr:SetAttribute("DenyBlockBreak",nil)
                             end
                             lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
-                            local x = math.round(v.Position.X/3)
-                            local y = math.round(v.Position.Y/3)
-                            local z = math.round(v.Position.Z/3)
-                            game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.DamageBlock:InvokeServer({
-                                ["blockRef"] = {
-                                    ["blockPosition"] = Vector3.new(x,y,z)
-                                },
-                                ["hitPosition"] = Vector3.new(x,y,z),
-                                ["hitNormal"] = Vector3.new(x,y,z)
                             })
                         until not v:FindFirstChild("Covers") or not v or not Enabled
                         if not Enabled then return end
