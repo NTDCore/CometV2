@@ -736,6 +736,8 @@ end)
 runcode(function()
     function GetBeds()
         local beds = {}
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                    task.wait(0.3)
         for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
             if string.lower(v.Name) == "bed" and v:FindFirstChild("Covers") ~= nil and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
                 table.insert(beds,v)
