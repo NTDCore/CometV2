@@ -1913,8 +1913,6 @@ runcode(function()
     })
 end)
 
-
-
 runcode(function()
     local Enabled = false
     local DiamondsExploit = Tabs["CollectAllDrops"]:CreateToggle({
@@ -1934,7 +1932,6 @@ runcode(function()
         end
     })
 end)
-
 
 runcode(function()
     local Enabled = false
@@ -1956,11 +1953,6 @@ runcode(function()
     })
 end)
 
-
-
-
-
- 
 runcode(function()
     local Enabled = false
     local Skywars = Tabs["Exploits"]:CreateToggle({
