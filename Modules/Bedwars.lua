@@ -1950,7 +1950,7 @@ runcode(function()
             Enabled = Callback
             if Enabled then
                 spawn(function()
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").MapCFrames.GeneratorAdornee.CFrame
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.Diamond.CFrame
                 end)
             end
         end
