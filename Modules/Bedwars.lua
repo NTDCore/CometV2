@@ -752,6 +752,8 @@ runcode(function()
             if Enabled then
                 spawn(function()
                     local beds = GetBeds()
+								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                    task.wait(2)
                     for i,v in pairs(beds) do
                             lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
 end
