@@ -743,6 +743,7 @@ runcode(function()
         end
         return beds
     end
+		
     local Enabled = false
     local AutoWin = Tabs["Exploits"]:CreateToggle({
         ["Name"] = "BedTp",
@@ -752,8 +753,8 @@ runcode(function()
                 spawn(function()
                     local beds = GetBeds()
                     for i,v in pairs(beds) do
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                                    task.wait(2)
+			    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+									wait()
                             lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
 end
                 end)
