@@ -745,7 +745,7 @@ runcode(function()
     end
     local Enabled = false
     local AutoWin = Tabs["Exploits"]:CreateToggle({
-        ["Name"] = "AutoWin",
+        ["Name"] = "BedTp",
         ["Callback"] = function(Callback)
             Enabled = Callback
             if Enabled then
@@ -763,10 +763,14 @@ runcode(function()
                                 lplr:SetAttribute("DenyBlockBreak",nil)
                             end
                             lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
+                              local x = math.round(v.Position.X/3)
+                            local y = math.round(v.Position.Y/3)
+                            local z = math.round(v.Position.Z/3)
                             })
                         until not v:FindFirstChild("Covers") or not v or not Enabled
                         if not Enabled then return end
                     end
+ CreateNotification("BedTp","Took "..math.abs(start - tick()).." Seconds/Ticks to win Game",5)
                 end)
             end
         end
