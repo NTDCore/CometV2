@@ -750,19 +750,11 @@ runcode(function()
             Enabled = Callback
             if Enabled then
                 spawn(function()
-                    if GetMatchState() ~= 1 then
-                        repeat task.wait() until GetMatchState() == 1 or not Enabled
-                        if not Enabled then return end
-                    end
-                    local start = tick()
                     local beds = GetBeds()
                     for i,v in pairs(beds) do
-                        repeat
 				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
                                     task.wait(2)
                             lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
-                        until not v:FindFirstChild("Covers") or not v or not Enabled
-                        if not Enabled then return end
 end
                 end)
             end
@@ -1967,6 +1959,15 @@ end)
 
 
 runcode(function()
+		function GetBeds()
+        local beds = {}	
+        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+            if string.lower(v.Name) == "bed" and v:FindFirstChild("Covers") ~= nil and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
+                table.insert(beds,v)
+            end
+        end
+        return beds
+    end
     local Enabled = false
     local BedTpExploit = Tabs["Utility"]:CreateToggle({
         ["Name"] = "BedTp",
