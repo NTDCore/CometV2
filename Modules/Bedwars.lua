@@ -1989,7 +1989,7 @@ for i,v in pairs(game:GetService("Workspace").bed:GetChildren()) do
 						game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
 						game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
             end
-					end
+
                 end)
             end
         end
