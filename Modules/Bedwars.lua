@@ -766,11 +766,9 @@ runcode(function()
                               local x = math.round(v.Position.X/3)
                             local y = math.round(v.Position.Y/3)
                             local z = math.round(v.Position.Z/3)
-                            })
                         until not v:FindFirstChild("Covers") or not v or not Enabled
                         if not Enabled then return end
-                    end
- CreateNotification("BedTp","Took "..math.abs(start - tick()).." Seconds/Ticks to win Game",5)
+end
                 end)
             end
         end
