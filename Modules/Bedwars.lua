@@ -1950,7 +1950,7 @@ runcode(function()
             Enabled = Callback
             if Enabled then
                 spawn(function()
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.Diamond.CFrame
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").ItemDrops.diamond.CFrame
                 end)
             end
         end
@@ -1960,7 +1960,7 @@ end)
 runcode(function()
     local Enabled = false
     local BedTpExploit = Tabs["Render"]:CreateToggle({
-        ["Name"] = "GrabDiamond",
+        ["Name"] = "BedTpExploit",
         ["Callback"] = function(Callback)
             Enabled = Callback
             if Enabled then
