@@ -1903,7 +1903,7 @@ runcode(function()
                 spawn(function()
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
                     task.wait(2)
-                        for i,v in pairs(game:GetService("Workspace").emeralds:GetChildren()) do
+                        for i,v in pairs(game:GetService("Workspace").emerald:GetChildren()) do
                                 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
                                        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
                         end
