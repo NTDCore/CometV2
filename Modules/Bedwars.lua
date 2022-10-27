@@ -897,37 +897,24 @@ runcode(function()
         return returning
     end 
     local Anims = {
-        ["AutoBlockBuggy"] = {
-            {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(220), math.rad(100), math.rad(100)),Time = 0.25},
-            {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0)), Time = 0.25}
+        ["SlowVape"] = {
+            {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(295), math.rad(55), math.rad(290)), Time = 0.15},
+	    {CFrame = CFrame.new(0.69, -0.71, 0.6) * CFrame.Angles(math.rad(200), math.rad(60), math.rad(1)), Time = 0.15}
         },
-        ["Weird"] = {
-            {CFrame = CFrame.new(0, 0, 1.5) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0)),Time = 0.25},
-            {CFrame = CFrame.new(0, 0, -1.5) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0)),Time = 0.25}
+        ["NewVape"] = {
+            {CFrame = CFrame.new(0.69, -0.77, 1.47) * CFrame.Angles(math.rad(-33), math.rad(57), math.rad(-81)), Time = 0.12},
+            {CFrame = CFrame.new(0.74, -0.92, 0.88) * CFrame.Angles(math.rad(147), math.rad(71), math.rad(53)), Time = 0.12}
         },
-        ["AutoBlock1"] = {
-            {CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(-90), math.rad(90), math.rad(90)),Time = 0.25}
+        ["ExhibitionVape"] = {
+            {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.1},
+            {CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.2}
         },
-        ["AutoBlock2"] = {
-            {CFrame = CFrame.new(0, -1, 0) * CFrame.Angles(math.rad(0), math.rad(90), math.rad(0)), Time = 0.3}
-        },
-        ["VerticalSpin"] = {
-			{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(-90), math.rad(8), math.rad(5)), Time = 0.25},
-			{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(180), math.rad(3), math.rad(13)), Time = 0.25},
-			{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(90), math.rad(-5), math.rad(8)), Time = 0.25},
-			{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0)), Time = 0.25}
-		},
-        ["Zyla"] = {
-            {CFrame = CFrame.new(0.3, -2, 0.5) * CFrame.Angles(-math.rad(190), math.rad(110), -math.rad(90)), Time = 0.3},
-            {CFrame = CFrame.new(0.3, -1.5, 1.5) * CFrame.Angles(math.rad(120), math.rad(140), math.rad(320)), Time = 0.1}
-        },
-        ["Spinny"] = {
-            {CFrame = CFrame.new(1, -0.5, 0.5) * CFrame.Angles(math.rad(-30), math.rad(0), math.rad(0)), Time = 0.1},
-            {CFrame = CFrame.new(1, -0.5, 0.5) * CFrame.Angles(math.rad(-120), math.rad(0), math.rad(0)), Time = 0.1},
-            {CFrame = CFrame.new(1, -0.5, 0.5) * CFrame.Angles(math.rad(-180), math.rad(0), math.rad(0)), Time = 0.1},
-            {CFrame = CFrame.new(1, -0.5, 0.5) * CFrame.Angles(math.rad(-240), math.rad(0), math.rad(0)), Time = 0.1},
-            {CFrame = CFrame.new(1, -0.5, 0.5) * CFrame.Angles(math.rad(-300), math.rad(0), math.rad(0)), Time = 0.1},
-            {CFrame = CFrame.new(1, -0.5, 0.5) * CFrame.Angles(math.rad(-360), math.rad(0), math.rad(0)), Time = 0.1}
+        ["Exhibition Old"] = {
+                        {CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.15},
+			{CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.05},
+			{CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.1},
+			{CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.05},
+			{CFrame = CFrame.new(0.63, -0.1, 1.37) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.15}
         }
     }
     local endanim = {
@@ -1033,8 +1020,8 @@ runcode(function()
         ["Function"] = function(v) 
             CurrentAnim["Value"] = v
         end,
-        ["List"] = {"AutoBlockBuggy","Weird","AutoBlock1","AutoBlock2","VerticalSpin","Zyla","Spinny"},
-        ["Default"] = "Zyla"
+        ["List"] = {"SlowVape","NewVape","ExhibitionVape","AutoBlock2","Exhibition Old"},
+        ["Default"] = "NewVape"
     })
     AttackAnim = KillAura:CreateOptionTog({
         ["Name"] = "Animation",
