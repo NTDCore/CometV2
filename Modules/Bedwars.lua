@@ -1710,12 +1710,10 @@ runcode(function()
             Enabled = Callback
             if Enabled then
 	task.spawn(function()
-                entity.character.HumanoidRootPart.Velocity = Vector3.new(entity.character.HumanoidRootPart.Velocity.X, 500, entity.character.HumanoidRootPart.Velocity.Z)
-	end)
+								entity.character.HumanoidRootPart.Velocity = Vector3.new(entity.character.HumanoidRootPart.Velocity.X, 500, entity.character.HumanoidRootPart.Velocity.Z)
+							end)
             else
-                if velo then
-                    velo:Destroy()
-                    velo = nil
+                print("off")
                 end
             end
         end
