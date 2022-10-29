@@ -1702,7 +1702,6 @@ runcode(function()
     })
 end)
 
-
 runcode(function()
     local Enabled = false
     local StoneExploit = Tabs["Utility"]:CreateToggle({
