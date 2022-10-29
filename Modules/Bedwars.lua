@@ -1701,6 +1701,26 @@ runcode(function()
         end
     })
 end)
+runcode(function()
+    local velo
+    local Enabled = false
+    local HighJumpV2 = Tabs["Blatant"]:CreateToggle({
+        ["Name"] = "HighJumpV2",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+	task.spawn(function()
+                entity.character.HumanoidRootPart.Velocity = Vector3.new(entity.character.HumanoidRootPart.Velocity.X, 500, entity.character.HumanoidRootPart.Velocity.Z)
+	end)
+            else
+                if velo then
+                    velo:Destroy()
+                    velo = nil
+                end
+            end
+        end
+    })
+end)
 
 runcode(function()
     local Enabled = false
