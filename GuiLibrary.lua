@@ -1,3 +1,4 @@
+
 repeat task.wait() until game:IsLoaded()
 local array
 if shared["betterisfile"]("CometV2/ArrayList.lua") then
@@ -122,6 +123,8 @@ if betterisfile("rektsky/assets/cape.png") == false then
     writefile("rektsky/assets/cape.png", req.Body)
 end
 
+
+
 local cachedassets = {}
 local function getcustomassetfunc(path)
     if not betterisfile(path) then
@@ -151,6 +154,7 @@ local function getcustomassetfunc(path)
     return cachedassets[path]
 end
 
+
 local cachedassetstwo = {}
 local function getcustomassetfuncforsounds(path)
     if not betterisfile(path) then
@@ -179,6 +183,8 @@ local function getcustomassetfuncforsounds(path)
     end
     return cachedassetstwo[path]
 end
+
+
 
 function lib:ToggleLib()
     if not ScreenGui.Enabled and game:GetService("UserInputService"):GetFocusedTextBox() == nil then
@@ -306,6 +312,7 @@ local function playdingsound(istrue)
         end
     end
 end
+	
 
 local tabs = {}
 function lib:CreateWindow()
