@@ -1945,6 +1945,43 @@ runcode(function()
 end)
 
 runcode(function()
+    local Connection
+    local Enabled = false
+    local Distance = {["Value"] = 18}
+    local AimAssist = Tabs["Combat"]:CreateToggle({
+        ["Name"] = "VelocityHighJump made by  xv",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+						 spawn(function()
+								if GetMatchState() ~= 1 then
+                        repeat task.wait() until GetMatchState() == 1 or not Enabled
+                        if not Enabled then return end
+                    end
+				if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+					iea2 = 0
+					while iea2 <= VelocityHighJumpAmmount do
+						iea2 = iea2 + 1
+						game.Players.LocalPlayer.character.HumanoidRootPart.Velocity = game.Players.LocalPlayer.character.HumanoidRootPart.Velocity + Vector3.new(0,30,0)
+					end
+				end
+                end)
+            else
+                Connection:Disconnect()
+            end
+        end
+    })
+    VelocityHighJumpAmmount = AimAssist:CreateSlider({
+        ["Name"] = "Distance",
+        ["Function"] = function(val) end,
+        ["Min"] = 0,
+        ["Max"] = 21,
+        ["Default"] = 21,
+        ["Round"] = 1
+    })
+end)
+
+runcode(function()
     local Enabled = false
     local Skywars = Tabs["Exploits"]:CreateToggle({
         ["Name"] = "AutoSkywars",
