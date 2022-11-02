@@ -1673,8 +1673,8 @@ end)
     --local velo
     --local Enabled = false
     --local HighJump = Tabs["Blatant"]:CreateToggle({
-        ["Name"] = "HighJump",
-        ["Callback"] = function(Callback)
+        --["Name"] = "HighJump",
+        --["Callback"] = function(Callback)
             --Enabled = Callback
             --if Enabled then
                 --local hrp = lplr.Character:FindFirstChild("HumanoidRootPart")
