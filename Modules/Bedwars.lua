@@ -32,7 +32,7 @@ local Tabs = {
     ["Utility"] = lib:CreateTab("Utility",Color3.fromRGB(83,214,110),"player"),
     ["World"] = lib:CreateTab("World",Color3.fromRGB(52,28,228),"world"),
     ["Exploits"] = lib:CreateTab("Exploits",Color3.fromRGB(157,39,41),"exploit"),
-    ["CollectAllDrops"] = lib:CreateTab("CollectAllDrops",Color3.fromRGB(157,39,41),"collectalldrops")
+    --["CollectAllDrops"] = lib:CreateTab("CollectAllDrops",Color3.fromRGB(157,39,41),"collectalldrops")--
 }
 local KnitClient = debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 6)
 local Client = require(game:GetService("ReplicatedStorage").TS.remotes).default.Client
@@ -1668,39 +1668,39 @@ runcode(function()
         end
     })
 end)
-
---runcode(function()
-    --local velo
-    --local Enabled = false
-    --local HighJump = Tabs["Blatant"]:CreateToggle({
-        --["Name"] = "HighJump",
-        --["Callback"] = function(Callback)
-            --Enabled = Callback
-            --if Enabled then
-                --local hrp = lplr.Character:FindFirstChild("HumanoidRootPart")
-                --velo = Instance.new("BodyVelocity")
-                --velo.Velocity = Vector3.new(0,0,0)
-                --velo.MaxForce = Vector3.new(0,9e9,0)
-                --velo.Parent = hrp
-                --spawn(function()
-                    --while task.wait() do
-                        --if not Enabled then return end
-                        --for i = 1,30 do
-                            --task.wait()
-                            --if not Enabled then return end
-                            --velo.Velocity = velo.Velocity + Vector3.new(0,i*0.25,0)
-                        --end
-                    --end
-                --end)
-           --else
-                --if velo then
-                    --velo:Destroy()
-                    --velo = nil
-                --end
-            --end
-        --end
-    --})
---end)
+--Fix HighJump ;)
+runcode(function()
+    local velo
+    local Enabled = false
+    local HighJump = Tabs["Blatant"]:CreateToggle({
+        ["Name"] = "HighJump",
+        ["Callback"] = function(Callback)
+            Enabled = Callback
+            if Enabled then
+                local hrp = lplr.Character:FindFirstChild("HumanoidRootPart")
+                velo = Instance.new("BodyVelocity")
+                velo.Velocity = Vector3.new(0,0,0)
+                velo.MaxForce = Vector3.new(0,9e9,0)
+                velo.Parent = hrp
+                spawn(function()
+                    while task.wait() do
+                        if not Enabled then return end
+                        for i = 1,20 do
+                            task.wait()
+                            if not Enabled then return end
+                            velo.Velocity = velo.Velocity + Vector3.new(0,i*0.19,0)
+                        end
+                    end
+                end)
+           else
+                if velo then
+                    velo:Destroy()
+                    velo = nil
+                end
+            end
+        end
+    })
+end)
 
 runcode(function()
     local Enabled = false
@@ -1945,6 +1945,8 @@ end)
         --end
     --})
 --end)
+
+
 
 runcode(function()
     local Enabled = false
