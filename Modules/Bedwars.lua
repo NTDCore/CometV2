@@ -460,7 +460,7 @@ runcode(function()
                         if not Enabled then return end
                         if IsAlive(lplr) and isnetworkowner(lplr.Character:FindFirstChild("HumanoidRootPart")) then
                             local hum = lplr.Character:FindFirstChild("Humanoid")
-                            if hum.MoveDirection.Magnitude > 0 then
+                            if hum.MoveDirection.Magnitude > 0.15 then
                                 lplr.Character:TranslateBy(hum.MoveDirection * SpeedVal["Value"])
                             end
                         end
@@ -732,36 +732,36 @@ runcode(function()
         end
     })
 end)
-
-runcode(function()
-    function GetBeds()
-        local beds = {}	
-        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-            if string.lower(v.Name) == "bed" and v:FindFirstChild("Covers") ~= nil and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
-                table.insert(beds,v)
-            end
-        end
-        return beds
-    end
+--Bedwars Fix--;(
+--runcode(function()
+    --function GetBeds()
+        --local beds = {}	
+        --for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+            --if string.lower(v.Name) == "bed" and v:FindFirstChild("Covers") ~= nil and v:FindFirstChild("Covers").BrickColor ~= lplr.Team.TeamColor then
+                --table.insert(beds,v)
+            --end
+        --end
+        --return beds
+    --end
 		
-    local Enabled = false
-    local BedTp = Tabs["Exploits"]:CreateToggle({
-        ["Name"] = "BedTp",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                    local beds = GetBeds()
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                          task.wait(2)
-                              for i,v in pairs(beds) do
-                                  lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
-                                end
-                         end)
-                  end
-          end
-      })
-end)
+    --local Enabled = false
+    --local BedTp = Tabs["Exploits"]:CreateToggle({
+        --["Name"] = "BedTp",
+        --["Callback"] = function(Callback)
+            --Enabled = Callback
+            --if Enabled then
+                --spawn(function()
+                    --local beds = GetBeds()
+			--game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                          --task.wait(2)
+                              --for i,v in pairs(beds) do
+                                  --lplr.Character:FindFirstChild("HumanoidRootPart").CFrame = v.CFrame + Vector3.new(0,3,0)
+                                --end
+                         --end)
+                  --end
+          --end
+      --})
+--end)
 
 runcode(function()
     local Connection
@@ -843,8 +843,8 @@ runcode(function()
         ["Name"] = "MaxStuds",
         ["Function"] = function() end,
         ["Min"] = 0,
-        ["Max"] = 100,
-        ["Default"] = 30,
+        ["Max"] = 18,
+        ["Default"] = 18,
         ["Round"] = 1
     })
 end)
@@ -1669,38 +1669,38 @@ runcode(function()
     })
 end)
 
-runcode(function()
-    local velo
-    local Enabled = false
-    local HighJump = Tabs["Blatant"]:CreateToggle({
+--runcode(function()
+    --local velo
+    --local Enabled = false
+    --local HighJump = Tabs["Blatant"]:CreateToggle({
         ["Name"] = "HighJump",
         ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                local hrp = lplr.Character:FindFirstChild("HumanoidRootPart")
-                velo = Instance.new("BodyVelocity")
-                velo.Velocity = Vector3.new(0,0,0)
-                velo.MaxForce = Vector3.new(0,9e9,0)
-                velo.Parent = hrp
-                spawn(function()
-                    while task.wait() do
-                        if not Enabled then return end
-                        for i = 1,30 do
-                            task.wait()
-                            if not Enabled then return end
-                            velo.Velocity = velo.Velocity + Vector3.new(0,i*0.25,0)
-                        end
-                    end
-                end)
-            else
-                if velo then
-                    velo:Destroy()
-                    velo = nil
-                end
-            end
-        end
-    })
-end)
+            --Enabled = Callback
+            --if Enabled then
+                --local hrp = lplr.Character:FindFirstChild("HumanoidRootPart")
+                --velo = Instance.new("BodyVelocity")
+                --velo.Velocity = Vector3.new(0,0,0)
+                --velo.MaxForce = Vector3.new(0,9e9,0)
+                --velo.Parent = hrp
+                --spawn(function()
+                    --while task.wait() do
+                        --if not Enabled then return end
+                        --for i = 1,30 do
+                            --task.wait()
+                            --if not Enabled then return end
+                            --velo.Velocity = velo.Velocity + Vector3.new(0,i*0.25,0)
+                        --end
+                    --end
+                --end)
+           --else
+                --if velo then
+                    --velo:Destroy()
+                    --velo = nil
+                --end
+            --end
+        --end
+    --})
+--end)
 
 runcode(function()
     local Enabled = false
@@ -1884,102 +1884,67 @@ runcode(function()
     })
 end)
 
-runcode(function()
-    local Enabled = false
-    local EmeraldsExploit = Tabs["CollectAllDrops"]:CreateToggle({
-        ["Name"] = "GrabEmeralds",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                    task.wait(2)
-                        for i,v in pairs(game:GetService("Workspace").emerald:GetChildren()) do
-                                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                                       game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
-                        end
-                end)
-            end
-        end
-    })
-end)
+--Bedwars Fixed
+--><
+--runcode(function()
+    --local Enabled = false
+    --local EmeraldsExploit = Tabs["CollectAllDrops"]:CreateToggle({
+        --["Name"] = "GrabEmeralds",
+        --["Callback"] = function(Callback)
+           -- Enabled = Callback
+            --if Enabled then
+                --spawn(function()
+                    --game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                    --task.wait(2)
+                        --for i,v in pairs(game:GetService("Workspace").emerald:GetChildren()) do
+                                --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                                       --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
+                        --end
+                --end)
+            --end
+        --end
+    --})
+--end)
 
-runcode(function()
-    local Enabled = false
-    local DiamondsExploit = Tabs["CollectAllDrops"]:CreateToggle({
-        ["Name"] = "GrabDiamond",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                    task.wait(2)
-                        for i,v in pairs(game:GetService("Workspace").diamond:GetChildren()) do
-                                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                                       game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
-                        end
-                end)
-            end
-        end
-    })
-end)
+--runcode(function()
+    --local Enabled = false
+    --local DiamondsExploit = Tabs["CollectAllDrops"]:CreateToggle({
+        --["Name"] = "GrabDiamond",
+       -- ["Callback"] = function(Callback)
+            --Enabled = Callback
+            --if Enabled then
+                --spawn(function()
+                    --game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                    --task.wait(2)
+                        --for i,v in pairs(game:GetService("Workspace").diamond:GetChildren()) do
+                                --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                                       --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
+                        --end
+                --end)
+            --end
+       --end
+    --})
+--end)
 
-runcode(function()
-    local Enabled = false
-    local IronsExploit = Tabs["CollectAllDrops"]:CreateToggle({
-        ["Name"] = "GrabIron",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                spawn(function()
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
-                    task.wait(2)
-                        for i,v in pairs(game:GetService("Workspace").iron:GetChildren()) do
-                                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                                       game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
-                        end
-                end)
-            end
-        end
-    })
-end)
-
-runcode(function()
-    local Connection
-    local Enabled = false
-    local Distance = {["Value"] = 18}
-    local AimAssist = Tabs["Combat"]:CreateToggle({
-        ["Name"] = "VelocityHighJump made by  xv",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-						 spawn(function()
-								if GetMatchState() ~= 1 then
-                        repeat task.wait() until GetMatchState() == 1 or not Enabled
-                        if not Enabled then return end
-                    end
-				if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-					iea2 = 0
-					while iea2 <= VelocityHighJumpAmmount do
-						iea2 = iea2 + 1
-						game.Players.LocalPlayer.character.HumanoidRootPart.Velocity = game.Players.LocalPlayer.character.HumanoidRootPart.Velocity + Vector3.new(0,30,0)
-					end
-				end
-                end)
-            else
-                Connection:Disconnect()
-            end
-        end
-    })
-    VelocityHighJumpAmmount = AimAssist:CreateSlider({
-        ["Name"] = "Distance",
-        ["Function"] = function(val) end,
-        ["Min"] = 0,
-        ["Max"] = 21,
-        ["Default"] = 21,
-        ["Round"] = 1
-    })
-end)
+--runcode(function()
+    --local Enabled = false
+    --local IronsExploit = Tabs["CollectAllDrops"]:CreateToggle({
+        --["Name"] = "GrabIron",
+        --["Callback"] = function(Callback)
+            --Enabled = Callback
+            --if Enabled then
+                --spawn(function()
+                    --game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1000,3009,3900)
+                    --task.wait(2)
+                        --for i,v in pairs(game:GetService("Workspace").iron:GetChildren()) do
+                                --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                                       --game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
+                        --end
+                --end)
+            --end
+        --end
+    --})
+--end)
 
 runcode(function()
     local Enabled = false
