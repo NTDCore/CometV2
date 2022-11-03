@@ -1,10 +1,9 @@
-
 repeat task.wait() until game:IsLoaded()
 local array
 if shared["betterisfile"]("CometV2/ArrayList.lua") then
     array = loadstring(readfile("CometV2/ArrayList.lua"))()
 else
-    array = loadstring(game:HttpGet("https://raw.githubusercontent.com/Ln3242/CometV2/main/ArrayList.lua"))()
+    array = loadstring(game:HttpGet("https://raw.githubusercontent.com/Ham-135/CometV2/main/ArrayList.lua"))()
 end
 local lib = {
     ["Rainbow"] = false,
@@ -123,8 +122,6 @@ if betterisfile("rektsky/assets/cape.png") == false then
     writefile("rektsky/assets/cape.png", req.Body)
 end
 
-
-
 local cachedassets = {}
 local function getcustomassetfunc(path)
     if not betterisfile(path) then
@@ -154,7 +151,6 @@ local function getcustomassetfunc(path)
     return cachedassets[path]
 end
 
-
 local cachedassetstwo = {}
 local function getcustomassetfuncforsounds(path)
     if not betterisfile(path) then
@@ -183,8 +179,6 @@ local function getcustomassetfuncforsounds(path)
     end
     return cachedassetstwo[path]
 end
-
-
 
 function lib:ToggleLib()
     if not ScreenGui.Enabled and game:GetService("UserInputService"):GetFocusedTextBox() == nil then
@@ -312,7 +306,6 @@ local function playdingsound(istrue)
         end
     end
 end
-	
 
 local tabs = {}
 function lib:CreateWindow()
@@ -539,11 +532,7 @@ function lib:CreateWindow()
                         callback(true)
                     end)
                     spawn(function()
-                        if data["Suffix"] ~= nil then
-                            array.Add(data["Name"],data["Suffix"]())
-                        else
-                            array.Add(data["Name"])
-                        end
+                        array.Add(data["Name"])
                     end)
                     spawn(function()
                         createnotification(title, "Enabled "..title, 4, true)
@@ -585,11 +574,7 @@ function lib:CreateWindow()
                             callback(true)
                         end)
                         spawn(function()
-                            if data["Suffix"] ~= nil then
-                                array.Add(data["Name"],data["Suffix"]())
-                            else
-                                array.Add(data["Name"])
-                            end
+                            array.Add(data["Name"])
                         end)
                         configtable[title]["IsToggled"] = true
                         toggle.BackgroundColor3 = tabname.TextColor3
