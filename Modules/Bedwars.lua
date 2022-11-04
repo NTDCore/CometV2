@@ -1668,39 +1668,39 @@ runcode(function()
         end
     })
 end)
---Fix HighJump ;)
+
 runcode(function()
     local velo
-    local Enabled = false
-    local HighJump = Tabs["Blatant"]:CreateToggle({
-        ["Name"] = "HighJump",
-        ["Callback"] = function(Callback)
-            Enabled = Callback
-            if Enabled then
-                local hrp = lplr.Character:FindFirstChild("HumanoidRootPart")
-                velo = Instance.new("BodyVelocity")
-                velo.Velocity = Vector3.new(0,0,0)
-                velo.MaxForce = Vector3.new(0,9e9,0)
-                velo.Parent = hrp
-                spawn(function()
-                    while task.wait() do
-                        if not Enabled then return end
-                        for i = 1,20 do
-                            task.wait()
-                            if not Enabled then return end
-                            velo.Velocity = velo.Velocity + Vector3.new(0,i*0.19,0)
-                        end
-                    end
-                end)
-           else
-                if velo then
-                    velo:Destroy()
-                    velo = nil
-                end
-            end
-        end
-    })
-end)
+    --local Enabled = false
+    --local HighJump = Tabs["Blatant"]:CreateToggle({
+        --["Name"] = "HighJump",
+        --["Callback"] = function(Callback)
+            --Enabled = Callback
+            --if Enabled then
+                --local hrp = lplr.Character:FindFirstChild("HumanoidRootPart")
+                --velo = Instance.new("BodyVelocity")
+                --velo.Velocity = Vector3.new(0,0,0)
+                --velo.MaxForce = Vector3.new(0,9e9,0)
+                --velo.Parent = hrp
+                --spawn(function()
+                    --while task.wait() do
+                        --if not Enabled then return end
+                        --for i = 1,20 do
+                            --task.wait()
+                            --if not Enabled then return end
+                            --velo.Velocity = velo.Velocity + Vector3.new(0,i*0.19,0)
+                       -- end
+                    --end
+                --end)
+           --else
+                --if velo then
+                    --velo:Destroy()
+                    --velo = nil
+                --end
+            --end
+        --end
+    --})
+--end)
 
 runcode(function()
     local Enabled = false
