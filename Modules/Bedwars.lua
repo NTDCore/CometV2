@@ -712,7 +712,7 @@ runcode(function()
                         v:FindFirstChild("Handle").Transparency = 0
                     end
                 end
-                game:GetService("Workspace").Gravity = 1000
+                game:GetService("Workspace").Gravity = 9999
                 lplr.Character:FindFirstChild("Head"):FindFirstChild("face").Transparency = 0
                 cam.CameraSubject = lplr.Character:FindFirstChild("Humanoid")
                 task.delay(0.5, function() velo:Destroy() game:GetService("Workspace").Gravity = 196.2 end)
