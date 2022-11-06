@@ -26,7 +26,7 @@ else
 end
 
 task.delay(1, function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Ham-135/CometWL/main/Loader.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/NTDCore/CometWL/main/Loader.lua"))()
     game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage",{
         Text = "Comet V2 Loaded!",
         Color = Color3.fromRGB(255,65,65),
